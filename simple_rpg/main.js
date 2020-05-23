@@ -24,7 +24,7 @@ $(document).ready(function(){
 
     //擺主角
     imgMain = new Image();
-    imgMain.src="simple_rpg/images/spritesheet.png";
+    imgMain.src="simple_rpg/images/spriteSheet.png";
     currentImgMainX=0;
     currentImgMainY=0;
     imgMain.onload = function(){
