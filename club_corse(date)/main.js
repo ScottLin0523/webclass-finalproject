@@ -1,7 +1,3 @@
-/*
-window.onload=function(){
-    document.write("Hello Js");
-}*/
 
 $(document).ready(function(){
     setTable();
@@ -14,6 +10,14 @@ $(document).ready(function(){
         setMonthAndDay(splitText[1],splitText[2]);
         setTable();
     });
+    $("LABEL").text("第"+$("[type=range]").val()+"場次");
+    $("[type=range]").change(function(){
+        $("LABEL").text("第"+$("[type=range]").val()+"場次");
+    });
+    $("#inputtext").change(function(){
+        topicsArray[$("[type=range]").val()-1]=$("#inputtext").val();
+        setTable();
+    })
 
 });
 

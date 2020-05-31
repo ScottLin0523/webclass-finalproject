@@ -6,20 +6,22 @@ $(document).ready(function(){
     //0:可走，1:障礙，2:終點，3敵人
     mapArray=[0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,1,
               0,0,1,0,0,1,0,0,1,1,1,1,1,0,0,1,
-              0,0,0,0,0,0,1,0,0,0,0,1,1,0,1,0,
+              0,0,0,0,0,0,1,0,3,0,0,1,1,0,1,0,
               1,0,1,1,0,0,1,1,1,0,0,0,0,0,1,0,
-              0,0,3,1,0,0,0,1,1,0,0,1,0,0,0,0,
+              0,0,1,1,3,0,0,1,1,0,0,1,3,0,0,0,
               1,0,1,1,1,1,0,0,1,1,1,1,0,1,0,1,
               1,0,1,0,0,0,0,0,0,0,0,1,1,1,0,1,
-              3,1,3,0,0,1,1,0,0,1,1,0,0,0,0,0,
+              3,1,3,0,0,3,1,0,0,1,1,3,0,0,0,0,
               0,1,0,1,1,0,0,0,0,0,0,0,0,1,1,0,
-              0,1,0,1,1,0,1,1,0,0,0,1,1,1,0,0,
+              0,1,0,1,1,0,3,1,0,0,0,1,1,1,0,3,
               0,0,0,1,1,0,1,1,1,0,1,1,1,1,0,1,
-              1,0,1,1,1,0,1,1,1,0,0,0,0,0,0,1,
+              1,0,1,1,1,0,1,1,1,3,0,0,0,0,3,1,
               1,0,1,1,1,0,1,0,1,0,1,1,0,1,1,1,
-              1,0,0,0,0,0,0,0,1,0,0,1,0,0,1,1,
-              1,1,1,3,1,0,1,0,0,0,1,1,0,0,0,1,
+              1,0,0,0,0,0,0,3,1,0,0,1,0,0,1,1,
+              1,1,1,3,1,0,1,0,0,0,1,1,0,3,0,1,
               1,1,1,1,1,0,1,0,0,0,3,1,0,1,0,2];
+    EnemyArray=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    enemystate=[7,104,116,79,207,69,280,70,354,64,420,65,491,64,559,64,627,64];
     ctx=$("#myCanvas")[0].getContext("2d");
 
     //擺主角
@@ -52,6 +54,7 @@ $(document).keydown(function(event){
     let targetImgMainX,targetImgMainY,targetBlock,cutImgPositionX;
 
     event.preventDefault();
+    let enmeyX,enemywidth,enemyStatenum;
 
     switch(event.originalEvent.code){
         case "ArrowLeft":
@@ -107,7 +110,17 @@ $(document).keydown(function(event){
                 $("#talkBox").text("抵達終點");
                 break;
             case 3:
-                $("#talkBox").text("哈囉");
+                EnemyArray[targetBlock%16]++;
+                enemyStatenum=EnemyArray[targetBlock%16];
+                enmeyX=enemystate[2*enemyStatenum];
+                enemywidth=enemystate[2*enemyStatenum+1];
+                ctx.clearRect(targetImgMainX,targetImgMainY,37.5,37.5);
+                if(EnemyArray[targetBlock%16]==9){
+                    mapArray[targetBlock]=0;
+                    break;
+                }
+                ctx.drawImage(imgEnemy,enmeyX,40,enemywidth,135,targetImgMainX,targetImgMainY,37.5,37.5); 
+                $("#talkBox").text("攻擊");
                 break;
     }       
 });

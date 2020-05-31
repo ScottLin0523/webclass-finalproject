@@ -29,11 +29,15 @@ function onPlayerReady(event){
         $("h2").text(player.getVideoData().title);
         player.playVideo();
     });
+    $("#stopButton").click(function(){
+        player.pauseVideo();
+    })
 }
 
 function onPlayerStateChange(event){
     if(Math.floor(player.getCurrentTime())==playTime[currentPlay][1]){
 
+        currentPlay=Math.floor(Math.random()*playList.length-1);
         if(currentPlay<playList.length-1){
             currentPlay++;
             player.loadVideoById({
