@@ -4,7 +4,7 @@ window.onload=function(){
 }*/
 
 $(document).ready(function(){
-    $("input").click(function(){
+    $("#randBut").click(function(){
        
         let numOfListItem = $("#choices li").length;
         let randomnum = Math.floor(Math.random()*numOfListItem);

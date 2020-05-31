@@ -25,19 +25,42 @@ function onYouTubeIframeAPIReady(){
 }
 
 function onPlayerReady(event){
+    $("#preButton").click(function(){
+        currentPlay--;
+        if(currentPlay<0){
+            currentPlay=playList.length-1;
+        }
+        player.loadVideoById({
+            "videoId":playList[currentPlay],
+            "startSeconds":playTime[currentPlay][0],
+            "endSeconds":playTime[currentPlay][1],
+            "suggestedQuality":"large"
+        });
+    });
     $("#playButton").click(function(){
         $("h2").text(player.getVideoData().title);
         player.playVideo();
     });
     $("#stopButton").click(function(){
         player.pauseVideo();
-    })
+    });
+    $("#nextButton").click(function(){
+        currentPlay++;
+        if(currentPlay>playList.length-1){
+            currentPlay=0;
+        }
+        player.loadVideoById({
+            "videoId":playList[currentPlay],
+            "startSeconds":playTime[currentPlay][0],
+            "endSeconds":playTime[currentPlay][1],
+            "suggestedQuality":"large"
+        });
+    });
 }
 
 function onPlayerStateChange(event){
     if(Math.floor(player.getCurrentTime())==playTime[currentPlay][1]){
 
-        currentPlay=Math.floor(Math.random()*playList.length-1);
         if(currentPlay<playList.length-1){
             currentPlay++;
             player.loadVideoById({
@@ -60,3 +83,4 @@ function onPlayerStateChange(event){
         $("h2").text(player.getVideoData().title);
     }
 }
+

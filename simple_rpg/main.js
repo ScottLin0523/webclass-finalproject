@@ -24,6 +24,7 @@ $(document).ready(function(){
     enemystate=[7,104,116,79,207,69,280,70,354,64,420,65,491,64,559,64,627,64];
     ctx=$("#myCanvas")[0].getContext("2d");
 
+
     //擺主角
     imgMain = new Image();
     imgMain.src="simple_rpg/images/spriteSheet.png";
@@ -115,6 +116,7 @@ $(document).keydown(function(event){
                 enmeyX=enemystate[2*enemyStatenum];
                 enemywidth=enemystate[2*enemyStatenum+1];
                 ctx.clearRect(targetImgMainX,targetImgMainY,37.5,37.5);
+
                 if(EnemyArray[targetBlock%16]==9){
                     mapArray[targetBlock]=0;
                     break;
